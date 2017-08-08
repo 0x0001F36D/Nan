@@ -45,11 +45,15 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="ConfigMetadata.cs" />
+    <Compile Include="Notification\FieldOperatedEventArgs.cs" />
     <Compile Include="IConfig.cs" />
+    <Compile Include="Notification\INotifyFieldOperated.cs" />
+    <Compile Include="Notification\Operation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

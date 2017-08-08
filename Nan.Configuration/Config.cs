@@ -1,16 +1,20 @@
 ﻿namespace Nan.Configuration
 {
+    using Notification;
     using System;
-    using System.ComponentModel;
-    using System.Linq;
     using System.IO;
+    using System.Linq;
     using System.Runtime.Serialization.Formatters.Binary;
-    public sealed class Config : INotifyPropertyChanged
+
+    /// <summary>
+    /// 類別設定檔
+    /// </summary>
+    public sealed class Config : INotifyFieldOperated
     {
-        private const string config_path = @"/Config";
         private const string config_extension = ".Nan-Config";
-        private readonly static string dirPath;
+        private const string config_path = @"/Config";
         private readonly static DirectoryInfo dir;
+        private readonly static string dirPath;
         private readonly ConfigMetadata configData;
         private readonly FileInfo fileInfo;
 
@@ -20,6 +24,23 @@
             dir = new DirectoryInfo(dirPath);
             if (!dir.Exists)
                 dir.Create();
+        }
+
+        private Config(FileInfo info)
+        {
+            this.fileInfo = info;
+            this.configData = this.initialize(info);
+        }
+
+        /// <summary>
+        /// 取得、更新欄位資料
+        /// </summary>
+        /// <param name="fieldName">欄位名稱</param>
+        /// <returns></returns>
+        public string this[string fieldName]
+        {
+            get => this.configData[fieldName];
+            set => this.configData[fieldName] = value;
         }
 
         /// <summary>
@@ -37,53 +58,6 @@
             var file = getFileInfo(path, subDir);
             return new Config(file);
         }
-
-        private Config(FileInfo info)
-        {
-            this.fileInfo = info;
-            this.configData = this.initialize(info);
-        }
-
-        private ConfigMetadata initialize(FileInfo fi)
-        {
-            try
-            {
-                using (var fs = fi.OpenRead())
-                {
-                    var bf = new BinaryFormatter();
-                    return (ConfigMetadata)bf.Deserialize(fs);
-                }
-            }
-            catch (Exception)
-            {
-                return new ConfigMetadata();
-            }
-        }
-
-        private static string getDirName<T>()
-            => typeof(T).Name;
-
-        private static DirectoryInfo getSubdirectory(string pdir)
-        {
-            var ds = dir.EnumerateDirectories();
-
-            return ds.FirstOrDefault(d => d.Name.Equals(pdir)) is DirectoryInfo di
-                ? di
-                : dir.CreateSubdirectory(pdir);
-        }
-
-        private static FileInfo getFileInfo(string filename, DirectoryInfo di)
-        {
-            var fs = di.EnumerateFiles();
-            if (fs.FirstOrDefault(f => f.Name.Equals(filename)) is FileInfo fi)
-                return fi;
-            else
-            {
-                var f = new FileInfo(di.FullName + "//" + filename);
-                f.Create();
-                return f;
-            }
-        }        
 
         /// <summary>
         /// 儲存設定
@@ -103,65 +77,92 @@
             }
         }
 
-        /// <summary>
-        /// 取得、更新欄位資料
-        /// </summary>
-        /// <param name="itemName">欄位名稱</param>
-        /// <returns></returns>
-        public string this[string itemName]
+        private static string getDirName<T>()
+            => typeof(T).Name;
+
+        private static FileInfo getFileInfo(string filename, DirectoryInfo di)
         {
-            get => this.configData[itemName];
-            set => this.configData[itemName] = value;
+            var fs = di.EnumerateFiles();
+            if (fs.FirstOrDefault(f => f.Name.Equals(filename)) is FileInfo fi)
+                return fi;
+            else
+            {
+                var f = new FileInfo(di.FullName + "//" + filename);
+                f.Create();
+                return f;
+            }
+        }
+
+        private static DirectoryInfo getSubdirectory(string pdir)
+        {
+            var ds = dir.EnumerateDirectories();
+
+            return ds.FirstOrDefault(d => d.Name.Equals(pdir)) is DirectoryInfo di
+                ? di
+                : dir.CreateSubdirectory(pdir);
+        }
+
+        private ConfigMetadata initialize(FileInfo fi)
+        {
+            try
+            {
+                using (var fs = fi.OpenRead())
+                {
+                    var bf = new BinaryFormatter();
+                    return (ConfigMetadata)bf.Deserialize(fs);
+                }
+            }
+            catch (Exception)
+            {
+                return new ConfigMetadata();
+            }
+        }
+
+        /// <summary>
+        /// 對欄位存取時引發事件
+        /// </summary>
+        public event FieldOperatedEventHandler FieldOperated
+        {
+            add => this.configData.FieldOperated += value;
+            remove => this.configData.FieldOperated -= value;
         }
 
         #region CURD
+        
+        /// <summary>
+        /// 創建欄位
+        /// </summary>
+        /// <param name="fieldName">欄位名稱</param>
+        /// <returns></returns>
+        public bool Create(string fieldName)
+            => this.configData.Create(fieldName);
 
         /// <summary>
-        /// 創建欄位資料
+        /// 刪除欄位
         /// </summary>
-        /// <param name="itemName">欄位名稱</param>
+        /// <param name="fieldName">欄位名稱</param>
         /// <returns></returns>
-        public bool Create(string itemName)
-            => this.configData.Create(itemName);
-            
-        /// <summary>
-        /// 更新欄位資料
-        /// </summary>
-        /// <param name="itemName">欄位名稱</param>
-        /// <param name="value">值</param>
-        /// <returns></returns>
-        public bool Update(string itemName, string value)
-            => this.configData.Update(itemName, value);
-            
+        public bool Delete(string fieldName)
+            => this.configData.Delete(fieldName);
+
         /// <summary>
         /// 取回欄位資料
         /// </summary>
-        /// <param name="itemName">欄位名稱</param>
+        /// <param name="fieldName">欄位名稱</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public bool Retrieve(string itemName, out string value)
-            => this.configData.Retrieve(itemName, out value);
-        
+        public bool Retrieve(string fieldName, out string value)
+            => this.configData.Retrieve(fieldName, out value);
+
         /// <summary>
-        /// 刪除欄位資料
+        /// 更新欄位資料
         /// </summary>
-        /// <param name="itemName">欄位名稱</param>
+        /// <param name="fieldName">欄位名稱</param>
+        /// <param name="value">值</param>
         /// <returns></returns>
-        public bool Delete(string itemName)
-            => this.configData.Delete(itemName);
+        public bool Update(string fieldName, string value)
+            => this.configData.Update(fieldName, value);
 
-        /// <summary>
-        /// 當欄位的值變更時引發
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged
-        {
-            add => this.configData.PropertyChanged += value;
-            remove => this.configData.PropertyChanged -= value;
-        }
-
-
-
-        #endregion
-
+        #endregion CURD
     }
 }

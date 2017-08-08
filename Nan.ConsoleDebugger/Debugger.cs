@@ -7,18 +7,16 @@ namespace Nan.ConsoleDebugger
     using System.Text;
     using System.Threading.Tasks;
     using Nan.Configuration;
+
     class Debugger
     {
         static void Main(string[] args)
         {
-            var test = new Test();
+            var t = new Test();
 
-            //Console.WriteLine(test.Config.Create("field-1"));
-            Console.WriteLine(test.Config.Update("field-1","hahaha"));
-            //Console.WriteLine(test.Config.Retrieve("field-1", out var data));
-            //Console.WriteLine(data);
-            //Console.WriteLine(test.Config.Delete("field-1"));
-
+            t.Config.Create("123");
+            t.Config.Retrieve("123", out var v);
+            Console.WriteLine(v);
 
             Console.ReadKey();
         }
@@ -28,6 +26,7 @@ namespace Nan.ConsoleDebugger
             public Test()
             {
                 this.Config = Config.Load<Test>("test.Nan-Config");
+                this.Config.FieldOperated += (_, e) => Console.WriteLine("pc:"+e.Operation);
             }
             public Config Config { get; private set; }
         }
