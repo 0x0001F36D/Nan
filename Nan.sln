@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nan.Error", "Nan.Error\Nan.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nan.ConsoleDebugger", "Nan.ConsoleDebugger\Nan.ConsoleDebugger.csproj", "{5BBEE0F9-8A4A-4925-AB75-95E4E2DC2089}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nan.Extensions", "Nan.Extensions\Nan.Extensions.csproj", "{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5BBEE0F9-8A4A-4925-AB75-95E4E2DC2089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BBEE0F9-8A4A-4925-AB75-95E4E2DC2089}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BBEE0F9-8A4A-4925-AB75-95E4E2DC2089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
