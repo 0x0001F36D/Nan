@@ -2,21 +2,36 @@
 namespace Nan.ConsoleDebugger
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using System.IO;
     using System.Text;
     using System.Threading.Tasks;
     using Nan.Configuration;
+    using System.Text.RegularExpressions;
+    using System.Net.Http;
+    using Nan.Management.Extensions;
 
     class Debugger
     {
+        
         static void Main(string[] args)
         {
-            var t = new Test();
+            var em = ExtensionManager
+                .Instance
+                .Setup((_, e) => Console.WriteLine(e.Message))
+                .Initialize(e => Console.WriteLine(e))
 
-            t.Config.Create("123");
-            t.Config.Retrieve("123", out var v);
-            Console.WriteLine(v);
+                .Invoke("告訴我我的IP位置")
+                .Invoke("告訴我我的IP位置")
+                .Invoke("告訴我我的IP位置")
+                .Invoke("告訴我我的IP位置")
+                .Invoke("告訴我的IP位置")
+                    
+                .Invoke("告訴我我的IP位置")
+                .Invoke("告訴我我的IP位置")
+                .Invoke("告訴我我的IP位置")
+                .Invoke("告訴我我的IP位置")
+                .Invoke("告訴我我的IP位置");
+
 
             Console.ReadKey();
         }
@@ -28,6 +43,7 @@ namespace Nan.ConsoleDebugger
                 this.Config = Config.Load<Test>("test.Nan-Config");
                 this.Config.FieldOperated += (_, e) => Console.WriteLine("pc:"+e.Operation);
             }
+
             public Config Config { get; private set; }
         }
     }

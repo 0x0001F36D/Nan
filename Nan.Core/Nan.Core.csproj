@@ -4,14 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CDF5B93E-0FCF-44FE-A6B6-2D4F1E5C844F}</ProjectGuid>
+    <ProjectGuid>{EB6BAFFA-B019-45AC-8D49-A2B4FA663974}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nan.Config</RootNamespace>
-    <AssemblyName>Nan.Config</AssemblyName>
+    <RootNamespace>Nan</RootNamespace>
+    <AssemblyName>Nan.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.2.6438</AssemblyVersion>
+    <AssemblyVersion>1.0.28.6438</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,17 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
-    <Compile Include="ConfigMetadata.cs" />
-    <Compile Include="Notification\FieldOperatedEventArgs.cs" />
-    <Compile Include="IConfig.cs" />
-    <Compile Include="Notification\INotifyFieldOperated.cs" />
-    <Compile Include="Notification\Operation.cs" />
+    <Compile Include="Management\Extensions\ExtensionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Nan.Extensions\Nan.Extensions.csproj">
+      <Project>{cc5f8858-e437-459d-ac7d-a7ca100e0fd5}</Project>
+      <Name>Nan.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

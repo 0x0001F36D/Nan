@@ -11,6 +11,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AssemblyVersion>1.0.39.6438</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,7 +32,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,12 +53,32 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nan.Configuration\Nan.Configuration.csproj">
       <Project>{cdf5b93e-0fcf-44fe-a6b6-2d4f1e5c844f}</Project>
       <Name>Nan.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nan.Core\Nan.Core.csproj">
+      <Project>{eb6baffa-b019-45ac-8d49-a2b4fa663974}</Project>
+      <Name>Nan.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nan.Error\Nan.Error.csproj">
+      <Project>{a187efeb-df9f-4715-acf2-569ffd3156e1}</Project>
+      <Name>Nan.Error</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nan.Extensions\Nan.Extensions.csproj">
+      <Project>{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}</Project>
+      <Name>Nan.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nan.Vox\Nan.Vox.csproj">
+      <Project>{780032ac-e21c-41da-895b-b07c7fab322d}</Project>
+      <Name>Nan.Vox</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

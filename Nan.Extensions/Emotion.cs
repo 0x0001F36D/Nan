@@ -1,50 +1,5 @@
 ﻿namespace Nan.Extensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    /// <summary>
-    /// 提供擴充方法的模組接口
-    /// </summary>
-    public interface IModuleExtension
-    {
-        /// <summary>
-        /// 模組名稱
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// 引動
-        /// </summary>
-        /// <param name="text">使用者的語音轉文字指令</param>
-        void Invoke(string text);
-
-        /// <summary>
-        /// 回應當下的使用者命令的情緒
-        /// </summary>
-        event EmotionResponseEventHandler EmotionResponse;
-
-        /// <summary>
-        /// 回應當下的使用者命令的訊息
-        /// </summary>
-        event MessageResponseEventHandler MessageResponse;
-    }
-
-    /// <summary>
-    /// 表示模組產生訊息回應時所引發的 <seealso cref="IModuleExtension.MessageResponse"/> 事件的方法。
-    /// </summary>
-    /// <param name="message">從模組內回應的訊息</param>
-    public delegate void MessageResponseEventHandler(string message);
-
-    /// <summary>
-    /// 表示模組產生情緒回應時所引發的 <seealso cref="IModuleExtension.EmotionResponse"/> 事件的方法。
-    /// </summary>
-    /// <param name="emotion">從模組內回應的情緒</param>
-    public delegate void EmotionResponseEventHandler(Emotion emotion);
-
     /// <summary>
     /// 情緒
     /// </summary>

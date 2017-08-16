@@ -2,6 +2,7 @@
 {
     using Notification;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Runtime.Serialization.Formatters.Binary;
@@ -17,7 +18,7 @@
         private readonly static string dirPath;
         private readonly ConfigMetadata configData;
         private readonly FileInfo fileInfo;
-
+        //  private readonly FileSystemWatcher watcher;
         static Config()
         {
             dirPath = Environment.CurrentDirectory + config_path;
@@ -30,6 +31,31 @@
         {
             this.fileInfo = info;
             this.configData = this.initialize(info);
+            /*
+            this.watcher = new FileSystemWatcher(dir.FullName)
+            {
+                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.DirectoryName
+            };
+
+            this.watcher.Changed += (_, e) =>
+            {
+                
+                switch (e.ChangeType)
+                {
+                    case WatcherChangeTypes.Created:
+                        break;
+                    case WatcherChangeTypes.Deleted:
+                        break;
+                    case WatcherChangeTypes.Changed:
+                        break;
+                    case WatcherChangeTypes.Renamed:
+                        break;
+                    case WatcherChangeTypes.All:
+                        break;
+                    default:
+                        break;
+                }
+            };*/
         }
 
         /// <summary>
@@ -126,6 +152,21 @@
             add => this.configData.FieldOperated += value;
             remove => this.configData.FieldOperated -= value;
         }
+
+        /// <summary>
+        /// 取得所有欄位名稱
+        /// </summary>
+        /// <returns></returns>
+        public IReadOnlyList<string> List()
+            => this.configData.List();
+
+        /// <summary>
+        /// 檢查欄位是否存在於設定檔中
+        /// </summary>
+        /// <param name="fieldName">欄位名稱</param>
+        /// <returns></returns>
+        public bool Exist(string fieldName)
+            => this.configData.Exist(fieldName);
 
         #region CURD
         

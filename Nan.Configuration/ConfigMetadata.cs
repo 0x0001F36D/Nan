@@ -3,6 +3,7 @@
     using Notification;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Runtime.Serialization;
 
     /// <summary>
@@ -74,6 +75,12 @@
         }
 
         private bool checkName(string name)
-                                                    => string.IsNullOrWhiteSpace(name);
+            => string.IsNullOrWhiteSpace(name);
+
+        internal IReadOnlyList<string> List()
+            => this.data.Keys.ToList();
+
+        internal bool Exist(string name)
+            => this.data.ContainsKey(name.ToLower());
     }
 }

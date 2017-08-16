@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nan.ConsoleDebugger", "Nan.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nan.Extensions", "Nan.Extensions\Nan.Extensions.csproj", "{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nan.Core", "Nan.Core\Nan.Core.csproj", "{EB6BAFFA-B019-45AC-8D49-A2B4FA663974}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +41,15 @@ Global
 		{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC5F8858-E437-459D-AC7D-A7CA100E0FD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6BAFFA-B019-45AC-8D49-A2B4FA663974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6BAFFA-B019-45AC-8D49-A2B4FA663974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6BAFFA-B019-45AC-8D49-A2B4FA663974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6BAFFA-B019-45AC-8D49-A2B4FA663974}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(CodealikeProperties) = postSolution
+		SolutionGuid = cdef101f-1228-494d-9e55-c4a783f1809d
 	EndGlobalSection
 EndGlobal
