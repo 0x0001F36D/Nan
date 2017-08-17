@@ -15,7 +15,7 @@ namespace Nan.ConsoleDebugger
 
     class Debugger
     {
-        
+        [STAThread]   
         static void Main(string[] args)
         {
             //告訴我我的IP位置

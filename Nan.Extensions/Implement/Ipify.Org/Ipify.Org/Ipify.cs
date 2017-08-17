@@ -25,7 +25,7 @@ namespace Ipify.org
             this.httpClient = new HttpClient();
             this.rule = new Dictionary<string, Delegate>
             {
-                [@"(查詢|告訴我|找出|我想知道|查|搜尋).*我的?.*ip(address|地址|位置|位址)?"] = new Func<Task<string>>(async () => await httpClient.GetStringAsync("https://api.ipify.org"))
+                [@"(查詢|告訴我|找出|我想知道|查|搜尋)?.*我的?.*ip(address|地址|位置|位址)?"] = new Func<Task<string>>(async () => await httpClient.GetStringAsync("https://api.ipify.org"))
             };
         }
 
