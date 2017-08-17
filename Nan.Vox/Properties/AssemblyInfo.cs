@@ -13,6 +13,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Viyrex(aka Yuyu) 2017")]
 [assembly: ComVisible(false)]
 [assembly: Guid("780032ac-e21c-41da-895b-b07c7fab322d")]
-[assembly: AssemblyVersion("1.0.3.6438")]
-[assembly: AssemblyFileVersion("2017.8.16.2133")]
+[assembly: AssemblyVersion("1.0.28.6438")]
+[assembly: AssemblyFileVersion("2017.8.17.0015")]
 

@@ -15,7 +15,8 @@ namespace Nan.Vox
         private readonly GoogleSpeechToText stt;
         private VoiceRecognize()
         {
-          //  this.stt = new GoogleSpeechToText()
+            this.stt = new GoogleSpeechToText();
+            this.flag = false;
         }
         public static VoiceRecognize Instance
         {
@@ -30,5 +31,23 @@ namespace Nan.Vox
         }
         private static volatile VoiceRecognize instance;
         private static object locker = new object();
+
+
+        private bool flag;
+        public VoiceRecognize Setup(AlternativesProcessor processor)
+        {
+            if (processor != null && !flag)
+            {
+                this.stt.ProcessAlternatives += processor;
+                this.flag = true;
+            }
+            return this;
+        }
+
+        public void Start()
+            => this.stt.Start();
+
+        public void Stop()
+            => this.stt.Stop();
     }
 }
