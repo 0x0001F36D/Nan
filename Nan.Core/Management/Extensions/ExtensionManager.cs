@@ -74,13 +74,15 @@
         /// 透過使用者的語音轉文字指令引動插件
         /// </summary>
         /// <param name="text">使用者的語音轉文字指令</param>
-        public ExtensionManager Invoke(string text)
+        /// <returns></returns>
+        public bool Invoke(string text)
         {
+            var flag = false;
             foreach (var mod in this.extensions.Where(x => x.Value.Evaluate(text)))
             {
-                mod.Value.Invoke(text);
+                flag |= mod.Value.Invoke(text);
             }
-            return this;
+            return flag;
         }
 
         /// <summary>

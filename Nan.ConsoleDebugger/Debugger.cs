@@ -31,15 +31,23 @@ namespace Nan.ConsoleDebugger
                 var alt = alternatives.FirstOrDefault();
                 if (alt is SpeechRecognitionAlternative alternative)
                 {
-                    em.Invoke(alternative.Transcript);
+                    Console.WriteLine("Voice input: "+alternative.Transcript);
+                    Console.WriteLine("Invoke: ",   em.Invoke(alternative.Transcript));
                 }
             });
+            while (true)
+            {
+                Console.WriteLine("- start Recording -");
+                voxr.Start();
+                Console.WriteLine(" Press any to continue ...");
+                Console.ReadKey();
+                Console.WriteLine("- stop  Recording -");
+                voxr.Stop();
 
-            Console.WriteLine("- start -");
-            voxr.Start();
-            Console.ReadKey();
-            Console.WriteLine("- stop  -");
-            voxr.Stop();
+                Console.WriteLine("press 'x' to exit");
+                if (Console.ReadKey().Key == ConsoleKey.X)
+                    break;
+            }
             Console.ReadKey();
         }
 

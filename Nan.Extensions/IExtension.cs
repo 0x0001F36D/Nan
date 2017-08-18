@@ -15,7 +15,7 @@
         /// 透過使用者的語音轉文字指令引動插件
         /// </summary>
         /// <param name="text">使用者的語音轉文字指令</param>
-        void Invoke(string text);
+        bool Invoke(string text);
 
         /// <summary>
         /// 回應當下的使用者命令

@@ -75,7 +75,7 @@ namespace Ipify.org
             return false;
         }
 
-        public void Invoke(string text)
+        public bool Invoke(string text)
         {
             if (this.isMatch(text, out var d))
             {
@@ -91,7 +91,10 @@ namespace Ipify.org
                     var msg = taker.TakeOnce(situations[1]);
                     this.Response?.Invoke(this, new ResponseEventArgs(msg, Emotion.Sadness));
                 }
+                return true;
             }
+
+            return false;
         }
 
         public event ResponseEventHandler Response;
