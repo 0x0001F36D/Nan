@@ -62,12 +62,22 @@ namespace Nan.Extensions.Spotify
             {
                 [@"換?(播放|放)?下一首(歌曲|歌|曲目|曲子|音樂)?"] = new Action(next),
                 [@"換?(播放|放)?上一首(歌曲|歌|曲目|曲子|音樂)?"] = new Action(previous),
+
                 [@"(停止|暫停|中止)(歌曲|音樂)?"] = new Action(pause),
                 [@"把(歌曲|歌|音樂)(中止|暫停|停止)"] = new Action(pause),
-                [@"放(歌曲|歌|音樂)?"] = new Action(play),
-                [@"播放(歌曲|音樂)?"] = new Action(play),
+
                 [@"((把|讓)?(音樂播放器|播放器|spotify))?(開啟靜音|靜音|消音)"] = new Action(mute),
                 [@"((把|讓)?(音樂播放器|播放器|spotify))?(開啟聲音|關閉消音|關閉靜音)"] = new Action(unmute),
+
+                [@"(關閉|禁用)隨機播放(模式)?"] = new Action(shuffleOff),
+                [@"(開啟|啟用)?隨機播放(模式)?"] = new Action(shuffleOn),
+
+                [@"(重複播放|重播)這首(歌)?"] = new Action(repeatTrack),
+                [@"(重複播放|重播)這個?(歌單|清單)(的歌)?"] = new Action(repeatContext),
+                [@"(關閉|禁用)(重複播放|重播)"] = new Action(repeatOff),
+
+                [@"播放(歌曲|音樂)?"] = new Action(play),
+                [@"放(歌|音樂)?"] = new Action(play),
             };
             this.init();
         }
@@ -81,6 +91,7 @@ namespace Nan.Extensions.Spotify
             {
                 this.manager.SubjoinResponse(list[0], "事情已經照您所吩咐完成了!");
                 this.manager.SubjoinResponse(list[0], "好的!已經照您所吩咐的完成了");
+                this.manager.SubjoinResponse(list[0], "好的!已經完成了您的委託");
                 this.manager.SubjoinResponse(list[0], "好的!已經處理好了了");
 
 
@@ -112,6 +123,49 @@ namespace Nan.Extensions.Spotify
                 .FirstOrDefault(x => x.IsActive)) is null)
                 Task.Delay(100).Wait();
             return result;
+        }
+
+
+        private void repeatContext()
+        {
+            if (!_spotify.SetRepeatMode(RepeatState.Context).HasError())
+            {
+                var taker = new DefaultRandomizeTaker(this.manager);
+                this.Response?.Invoke(this, new ResponseEventArgs(taker.TakeOnce(list[0]), Emotion.Joy));
+            }
+        }
+        private void repeatTrack()
+        {
+            if (!_spotify.SetRepeatMode(RepeatState.Track).HasError())
+            {
+                var taker = new DefaultRandomizeTaker(this.manager);
+                this.Response?.Invoke(this, new ResponseEventArgs(taker.TakeOnce(list[0]), Emotion.Joy));
+            }
+        }
+        private void repeatOff()
+        {
+            if (!_spotify.SetRepeatMode(RepeatState.Off).HasError())
+            {
+                var taker = new DefaultRandomizeTaker(this.manager);
+                this.Response?.Invoke(this, new ResponseEventArgs(taker.TakeOnce(list[0]), Emotion.Joy));
+            }
+        }
+
+        private void shuffleOn()
+        {
+            if (!_spotify.SetShuffle(true).HasError())
+            {
+                var taker = new DefaultRandomizeTaker(this.manager);
+                this.Response?.Invoke(this, new ResponseEventArgs(taker.TakeOnce(list[0]), Emotion.Joy));
+            }
+        }
+        private void shuffleOff()
+        {
+            if (!_spotify.SetShuffle(false).HasError())
+            {
+                var taker = new DefaultRandomizeTaker(this.manager);
+                this.Response?.Invoke(this, new ResponseEventArgs(taker.TakeOnce(list[0]), Emotion.Joy));
+            }
         }
 
         private void mute()
